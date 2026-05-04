@@ -1,0 +1,89 @@
+Interactive Tea Ceremony (OOP) — Project Plan
+
+1. Goal
+   Create an interactive console-based OOP system where the user provides parameters
+   (tea type, temperature, time), objects simulate the brewing process, and the system
+   outputs tea quality and guest feedback.
+
+2. Architecture
+
+2.1 Domain (Models)
+    No input/output here.
+    Classes:
+    Tea (base)
+    GreenTea, BlackTea (inheritance)
+    Water
+    Teapot
+    BrewedTea
+    Person → Host, Guest
+
+2.2 Service (Logic)
+    TeaCeremony
+    Responsible for controlling ceremony flow and coordinating objects
+
+2.3 Controller (Interface)
+    CeremonyController
+    Responsible for user input and displaying results
+
+3. Core Classes
+    Tea
+    Fields: name, optimal_temperature, optimal_time
+    Method: evaluate_quality(temp, time)
+
+    Water
+    Fields: temperature, volume
+
+    Teapot
+    Method: brew(tea, water, time) → BrewedTea
+
+    BrewedTea
+    Fields: strength, bitterness, quality
+
+    Host
+    Method: prepare_tea(...)
+
+    Guest
+    Methods: drink(tea), give_feedback()
+
+    TeaCeremony
+    Methods: start(), brew_phase(), serving_phase(), drinking_phase()
+
+    CeremonyController
+    Methods: run(), choose_tea(), input_temperature(), input_time()
+
+4. Logic Rules
+   temperature < optimal → weak tea
+   temperature > optimal → bitter tea
+   correct values → good quality
+   Quality levels: bad / normal / good
+
+5. Program Flow
+    Start program
+    User selects tea type, temperature, brewing time
+    Create objects: Tea, Water, Teapot
+    Brew tea using Teapot.brew() → BrewedTea
+    Guest drinks tea
+    Output tea quality and guest feedback
+
+6. Minimum Features
+    2 tea types
+    temperature input
+    time input
+    quality calculation
+    guest feedback
+
+7. Implementation Order
+    Tea + subclasses
+    Water
+    Teapot
+    BrewedTea
+    Quality logic
+    Guest + Host
+    TeaCeremony
+    Controller
+
+8. Expected Output Example
+    Host prepares tea
+    Brewing...
+    Tea quality: Good
+    Guest: "Well balanced taste"
