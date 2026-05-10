@@ -28,11 +28,11 @@ while True:
 
 #brewing time
 while True:
-    time = input("Input duration of brewing (or 'exit' to exit): ")
-    if time.lower() == "exit":
+    brew_time = input("Input duration of brewing (or 'exit' to exit): ")
+    if brew_time.lower() == "exit":
         exit()
-    if time.isdigit() and int(time) >= 0:
-        time = int(time)
+    if brew_time.isdigit() and int(brew_time) >= 0:
+        brew_time = int(brew_time)
         break
     print("wrong input")
 
@@ -79,7 +79,7 @@ tea.describe()
 
 #brewing the tea and checking what is inside
 
-brewedtea = BrewTea(tea, temp, time, sugar, lemon, milk_ratio)
+brewedtea = BrewTea(tea, temp, brew_time, sugar, lemon, milk_ratio)
 print("Your tea:")
 brewedtea.describe()
 
