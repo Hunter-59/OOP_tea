@@ -1,6 +1,9 @@
+from abc import ABC, abstractmethod
+
 #creating classes
 
 class Tea:
+    @abstractmethod
     def __init__(self, name, op_temp, op_time):
         self.name = name
         self.op_temp = op_temp
@@ -25,20 +28,18 @@ class RedTea(Tea):
 
 
 class BrewTea:
-    def __init__(self, tea, water_temp, water_time, sugar, lemon, milk_ratio):
+    def __init__(self, tea, water_temp, water_time, sugar, lemon):
         self.tea = tea
         self.water_temp = water_temp
         self.water_time = water_time
         self.sugar = sugar
         self.lemon = lemon
-        self.milk_ratio = milk_ratio
 
     def describe(self):
         print(self.water_temp)
         print(self.water_time)
         print(self.sugar)
         print(self.lemon)
-        print(self.milk_ratio)
 
 #giving the score to the tea
 
@@ -56,7 +57,7 @@ class Conclusion:
     def description(brewedtea):
         print("Your tea will be:")
 
-        # Sugar analysis
+        #sugar analysis
         if brewedtea.sugar == 0:
             print("- unsweetened")
         elif brewedtea.sugar == 1:
@@ -68,7 +69,7 @@ class Conclusion:
 
         print("Also, the taste is going to be:")
 
-        # Temperature analysis
+        #temperature analysis
         temp_diff = brewedtea.water_temp - brewedtea.tea.op_temp
         if temp_diff <= -10:
             print("- weak and under-extracted due to insufficient water temperature.")
@@ -77,7 +78,7 @@ class Conclusion:
         else:
             print("- accurately extracted based on temperature.")
 
-        # Time analysis
+        #time analysis
         time_diff = brewedtea.water_time - brewedtea.tea.op_time
         if time_diff <= -1:
             print("- watery due to an insufficient brewing duration.")
@@ -86,22 +87,9 @@ class Conclusion:
         else:
             print("- well-balanced based on the brewing time.")
 
-        # Lemon and Milk analysis
-        if brewedtea.lemon and brewedtea.milk_ratio > 0:
-            print(
-                "- unpalatable and curdled. The acidity of the lemon has reacted adversely with the milk proteins.")
-        else:
-            if brewedtea.lemon:
-                print("- citrusy and acidic due to the addition of lemon.")
-
-            if brewedtea.milk_ratio > 0:
-                if brewedtea.milk_ratio <= 0.2:
-                    print("- creamy with a standard dash of milk.")
-                elif brewedtea.milk_ratio <= 0.5:
-                    print("- quite milky, which will significantly dilute the primary tea flavour.")
-                else:
-                    print("- predominantly milk, entirely overwhelming the tea infusion.")
-
+        #lemon analysis
+        if brewedtea.lemon == True:
+            print("- your tea is going to be a bit sour, perfect addition")
 
 #tea factory
 
