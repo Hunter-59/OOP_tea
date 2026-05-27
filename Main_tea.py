@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
-#asking about user's preferences
-
+#user preferences
 class Preferences:
     def __init__(self, sweetness, sourness, bitterness, strength):
         self.sweetness = sweetness
@@ -10,74 +9,175 @@ class Preferences:
         self.strength = strength
 
 
-#main abstract class tea
+#sugar and lemon modifiers
+class Sugar:
+    def __init__(self, amount: int):
+        self.amount = amount
 
+    def sweetness_bonus(self):
+        return self.amount * 1.5
+
+class Lemon:
+    def __init__(self, amount: int):
+        self.amount = amount
+
+    def sourness_bonus(self):
+        return self.amount * 2
+
+    def bitterness_reduction(self):
+        return self.amount * 0.5
+
+
+# abstract tea class
 class Tea(ABC):
-    def __init__(self, name, brew_temp, brew_time):
+    def __init__(
+        self,
+        name,
+        sweetness,
+        sourness,
+        bitterness,
+        strength,
+        brew_temp,
+        brew_time
+    ):
+
         self.name = name
+
+        self.sweetness = sweetness
+        self.sourness = sourness
+        self.bitterness = bitterness
+        self.strength = strength
+
         self.brew_temp = brew_temp
         self.brew_time = brew_time
 
     @abstractmethod
-    def match(self, prefs: Preferences) -> float:
+    def match(self, prefs, sugar, lemon):
         pass
-#method, same as describe, used to know how to brew tea correctly
+
+    # brewing info
     def brew_info(self):
         return f"{self.brew_temp}°C, {self.brew_time} min"
 
 
-#classes with types of tea
-
+# tea classes with match method, that allows to choose the best option with best modifiers
 class BlackTea(Tea):
     def __init__(self):
-        super().__init__("Black Tea", 95, 4)
-#matching method, that allows user to know score of his tea
-    def match(self, prefs):
+        super().__init__(
+            "Black Tea",
+            sweetness=2,
+            sourness=1,
+            bitterness=7,
+            strength=9,
+            brew_temp=95,
+            brew_time=4
+        )
+
+    def match(self, prefs, sugar, lemon):
+
+        final_sweetness = self.sweetness + sugar.sweetness_bonus()
+        final_sourness = self.sourness + lemon.sourness_bonus()
+        final_bitterness = self.bitterness - lemon.bitterness_reduction()
+        final_strength = self.strength
+
         score = 0
-        score += 10 - abs(prefs.strength - 9)
-        score += 10 - abs(prefs.bitterness - 7)
-        score += 10 - abs(prefs.sweetness - 3)
+
+        score += 10 - abs(final_sweetness - prefs.sweetness)
+        score += 10 - abs(final_sourness - prefs.sourness)
+        score += 10 - abs(final_bitterness - prefs.bitterness)
+        score += 10 - abs(final_strength - prefs.strength)
+
         return score
 
-#pretty much the same as black tea, but logic differs
+
 class GreenTea(Tea):
     def __init__(self):
-        super().__init__("Green Tea", 80, 3)
+        super().__init__(
+            "Green Tea",
+            sweetness=3,
+            sourness=4,
+            bitterness=5,
+            strength=4,
+            brew_temp=80,
+            brew_time=3
+        )
 
-    def match(self, prefs):
+    def match(self, prefs, sugar, lemon):
+
+        final_sweetness = self.sweetness + sugar.sweetness_bonus()
+        final_sourness = self.sourness + lemon.sourness_bonus()
+        final_bitterness = self.bitterness - lemon.bitterness_reduction()
+        final_strength = self.strength
+
         score = 0
-        score += 10 - abs(prefs.bitterness - 5)
-        score += 10 - abs(prefs.sourness - 4)
-        score += 10 - abs(prefs.strength - 4)
+
+        score += 10 - abs(final_sweetness - prefs.sweetness)
+        score += 10 - abs(final_sourness - prefs.sourness)
+        score += 10 - abs(final_bitterness - prefs.bitterness)
+        score += 10 - abs(final_strength - prefs.strength)
+
         return score
 
-#pretty much the same as other teas, but logic differs
+
 class RedTea(Tea):
     def __init__(self):
-        super().__init__("Red Tea", 90, 5)
+        super().__init__(
+            "Red Tea",
+            sweetness=5,
+            sourness=2,
+            bitterness=3,
+            strength=6,
+            brew_temp=90,
+            brew_time=5
+        )
 
-    def match(self, prefs):
+    def match(self, prefs, sugar, lemon):
+
+        final_sweetness = self.sweetness + sugar.sweetness_bonus()
+        final_sourness = self.sourness + lemon.sourness_bonus()
+        final_bitterness = self.bitterness - lemon.bitterness_reduction()
+        final_strength = self.strength
+
         score = 0
-        score += 10 - abs(prefs.strength - 6)
-        score += 10 - abs(prefs.sweetness - 5)
-        score += 10 - abs(prefs.sourness - 2)
+
+        score += 10 - abs(final_sweetness - prefs.sweetness)
+        score += 10 - abs(final_sourness - prefs.sourness)
+        score += 10 - abs(final_bitterness - prefs.bitterness)
+        score += 10 - abs(final_strength - prefs.strength)
+
         return score
 
 
-#class, that is choosing tea to recommend
+#tea recommender system
 
 class TeaRecommender:
     def __init__(self):
         self.teas = [BlackTea(), GreenTea(), RedTea()]
-#method, that is using preferences, entered before to choose tea with best score be matching them with the others
-    def recommend(self, prefs: Preferences):
+
+    def recommend(self, prefs):
         best_tea = None
         best_score = -1
 
+        best_sugar = 0
+        best_lemon = 0
+
+        # trying different combinations
         for tea in self.teas:
-            score = tea.match(prefs)  # POLYMORPHISM
-            if score > best_score:
-                best_score = score
-                best_tea = tea
-#returning conclusion
-        return best_tea, best_score
+
+            for sugar_amount in range(0, 4):
+                for lemon_amount in range(0, 3):
+
+                    sugar = Sugar(sugar_amount)
+                    lemon = Lemon(lemon_amount)
+
+                    score = tea.match(prefs, sugar, lemon)
+
+                    if score > best_score:
+
+                        best_score = score
+                        best_tea = tea
+
+                        best_sugar = sugar_amount
+                        best_lemon = lemon_amount
+
+        return best_tea, best_score, best_sugar, best_lemon
