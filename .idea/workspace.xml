@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="070167c7-0747-4c8e-8162-ea6702aa920e" name="Changes" comment="Some bug fixes provided">
+    <list default="true" id="070167c7-0747-4c8e-8162-ea6702aa920e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main_tea.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main_tea.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_tea.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_tea.py" afterDir="false" />
@@ -81,7 +81,9 @@
       <workItem from="1778418384073" duration="10916000" />
       <workItem from="1778437728543" duration="962000" />
       <workItem from="1778497261464" duration="1369000" />
-      <workItem from="1778532336015" duration="333000" />
+      <workItem from="1778532336015" duration="2233000" />
+      <workItem from="1779833817379" duration="1923000" />
+      <workItem from="1779883358964" duration="925000" />
     </task>
     <task id="LOCAL-00001" summary="Plan has been added">
       <option name="closed" value="true" />
@@ -163,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778429412008</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="final version for now">
+      <option name="closed" value="true" />
+      <created>1778533240053</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1778533240053</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,10 +185,11 @@
     <MESSAGE value="class-structure, yet, without logic" />
     <MESSAGE value="Demo version of the program is done, no test were done" />
     <MESSAGE value="Some bug fixes provided" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some bug fixes provided" />
+    <MESSAGE value="final version for now" />
+    <option name="LAST_COMMIT_MESSAGE" value="final version for now" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/OOP_tea$UI_tea.coverage" NAME="UI_tea Coverage Results" MODIFIED="1778438665151" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OOP_tea$UI_tea.coverage" NAME="UI_tea Coverage Results" MODIFIED="1779883484009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OOP_tea$Main_tea.coverage" NAME="Main_tea Coverage Results" MODIFIED="1778424480301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

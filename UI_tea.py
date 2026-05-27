@@ -1,74 +1,31 @@
-from Main_tea import Conclusion, BrewTea, Factory #importing classes from main
+from Main_tea import Preferences, TeaRecommender
 
-#asking user to create his own tea
+#function, that is used to receive score
+def ask_scale(question):
+    while True:
+        val = input(question + " (1-10 or exit): ")
+        if val.lower() == "exit":
+            exit()
+        if val.isdigit():
+            val = int(val)
+            if 1 <= val <= 10:
+                return val
+        print("Invalid input")
 
-allowed_tea_types = ["black", "green", "red"]
+#dialogue with user
+print("Tea Recommendation, answer further questions, and you will know your best tea")
 
-#tea type
-while True:
-    tea_type = input("Input tea type (or 'exit' to exit): ").lower()
-    if tea_type == "exit":
-        exit()
-
-    if tea_type in allowed_tea_types:
-        break
-    else:
-        print("wrong input")
-
-#temperature
-while True:
-    temp = input("Input temperature of water (or 'exit' to exit): ")
-    if temp.lower() == "exit":
-        exit()
-    if temp.isdigit() or (temp.startswith("-") and temp[1:].isdigit()):
-        temp = int(temp)
-        if 0 <= temp <= 100:
-            break
-    print("wrong input")
-
-#brewing time
-while True:
-    brew_time = input("Input duration of brewing (or 'exit' to exit): ")
-    if brew_time.lower() == "exit":
-        exit()
-    if brew_time.isdigit() and int(brew_time) >= 0:
-        brew_time = int(brew_time)
-        break
-    print("wrong input")
-
-#sugar
-while True:
-    sugar = input("Input amount of sugar (or 'exit' to exit): ")
-    if sugar.lower() == "exit":
-        exit()
-    if sugar.isdigit() and int(sugar) >= 0:
-        sugar = int(sugar)
-        break
-    print("wrong input")
-
-#lemon
-while True:
-    islemon = input("Do you want lemon (yes/no or 'exit' to exit): ").lower()
-    if islemon == "exit":
-        exit()
-    if islemon == "yes":
-        lemon = True
-        break
-    elif islemon == "no":
-        lemon = False
-        break
-    print("wrong input")
-
-#creating object tea and outputing data about it
-
-tea = Factory.create_tea(tea_type)
-tea.describe()
-
-#brewing the tea and checking what is inside
-
-brewedtea = BrewTea(tea, temp, brew_time, sugar, lemon)
-print("Your tea:")
-brewedtea.describe()
-
-Conclusion.score(brewedtea)
-Conclusion.description(brewedtea)
+sweetness = ask_scale("How sweet?")
+sourness = ask_scale("How sour?")
+bitterness = ask_scale("How bitter?")
+strength = ask_scale("How strong?")
+#creating user's prefs as an object
+prefs = Preferences(sweetness, sourness, bitterness, strength)
+#calling recommend system
+system = TeaRecommender()
+tea, score = system.recommend(prefs)
+#conclusion
+print("\nYour best tea is: ", tea)
+print(f"Best match: {tea.name}")
+print(f"Match score: {score}")
+print(f"Brewing: {tea.brew_info()}")
