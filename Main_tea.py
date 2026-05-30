@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 #user preferences
 class Preferences:
@@ -17,6 +17,7 @@ class Sugar:
     def sweetness_bonus(self):
         return self.amount * 1.5
 
+
 class Lemon:
     def __init__(self, amount: int):
         self.amount = amount
@@ -28,7 +29,7 @@ class Lemon:
         return self.amount * 0.5
 
 
-# abstract tea class
+#abstract tea class
 class Tea(ABC):
     def __init__(
         self,
@@ -42,16 +43,18 @@ class Tea(ABC):
     ):
 
         self.name = name
-
         self.sweetness = sweetness
         self.sourness = sourness
         self.bitterness = bitterness
         self.strength = strength
-
         self.brew_temp = brew_temp
         self.brew_time = brew_time
 
-    def match(self, prefs, sugar, lemon, multipliers):
+    @abstractmethod
+    def get_multipliers(self):
+        pass
+
+    def match(self, prefs, sugar, lemon):
 
         final_sweetness = self.sweetness + sugar.sweetness_bonus()
         final_sourness = self.sourness + lemon.sourness_bonus()
@@ -59,20 +62,26 @@ class Tea(ABC):
         final_strength = self.strength
 
         score = 0
+        multipliers = self.get_multipliers()
 
-        score += 10 - abs(final_sweetness - prefs.sweetness) * multipliers[""]
-        score += 10 - abs(final_sourness - prefs.sourness) * multipliers[""]
-        score += 10 - abs(final_bitterness - prefs.bitterness) * multipliers[""]
-        score += 10 - abs(final_strength - prefs.strength) * multipliers[""]
+        score += (10 - abs(final_sweetness - prefs.sweetness)) * multipliers["sweetness"]
+        score += (10 - abs(final_sourness - prefs.sourness)) * multipliers["sourness"]
+        score += (10 - abs(final_bitterness - prefs.bitterness)) * multipliers["bitterness"]
+        score += (10 - abs(final_strength - prefs.strength)) * multipliers["strength"]
 
-        return score
+        max_score = (10 * multipliers["sweetness"] + 10 * multipliers["sourness"] +
+                     10 * multipliers["bitterness"] + 10 * multipliers["strength"])
 
-    # brewing info
+        score = score / max_score * 50
+
+        return round(score, 1)
+
+    #brewing info
     def brew_info(self):
         return f"{self.brew_temp}°C, {self.brew_time} min"
 
 
-# tea classes with match method, that allows to choose the best option with best modifiers
+#tea classes
 class BlackTea(Tea):
     def __init__(self):
         super().__init__(
@@ -87,8 +96,12 @@ class BlackTea(Tea):
 
     def get_multipliers(self):
         return {
-
+            "sweetness": 1.0,
+            "sourness": 0.5,
+            "bitterness": 2.0,
+            "strength": 2.5
         }
+
 
 #------------------------------------------------------------------------
 class GreenTea(Tea):
@@ -105,8 +118,12 @@ class GreenTea(Tea):
 
     def get_multipliers(self):
         return {
-
+            "sweetness": 0.7,
+            "sourness": 1.8,
+            "bitterness": 1.5,
+            "strength": 0.8
         }
+
 
 #------------------------------------------------------------------------
 class RedTea(Tea):
@@ -123,32 +140,35 @@ class RedTea(Tea):
 
     def get_multipliers(self):
         return {
-
+            "sweetness": 2.0,
+            "sourness": 1.2,
+            "bitterness": 0.7,
+            "strength": 1.3
         }
 
-#tea recommender system
 
+#tea recommender system
 class TeaRecommender:
     def __init__(self):
         self.teas = [BlackTea(), GreenTea(), RedTea()]
 
     def recommend(self, prefs):
+
         best_tea = None
         best_score = -1
 
         best_sugar = 0
         best_lemon = 0
 
-        # trying different combinations
+        #trying different combinations
         for tea in self.teas:
             for sugar_amount in range(0, 4):
                 for lemon_amount in range(0, 3):
 
-                    multipliers = tea.get_multipliers()
                     sugar = Sugar(sugar_amount)
                     lemon = Lemon(lemon_amount)
 
-                    score = tea.match(prefs, sugar, lemon, multipliers)
+                    score = tea.match(prefs, sugar, lemon)
 
                     if score > best_score:
 

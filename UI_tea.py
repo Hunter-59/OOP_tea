@@ -29,11 +29,10 @@ prefs = Preferences(sweetness, sourness, bitterness, strength)
 system = TeaRecommender()
 tea, score, sugar, lemon = system.recommend(prefs)
 
-# conclusion
+#conclusion
 print("\nResults:")
-print("Sugar: no sugar")
 print(f"Best tea: {tea.name}")
-print(f"Match score: {score} out of 40")
+print(f"Match score: {score} out of 50")
 print(f"Brewing: {tea.brew_info()}")
 
 #sugar

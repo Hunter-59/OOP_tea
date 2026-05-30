@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="070167c7-0747-4c8e-8162-ea6702aa920e" name="Changes" comment="An improved recommendation system has been implemented">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="070167c7-0747-4c8e-8162-ea6702aa920e" name="Changes" comment="recomendation system was improved, yet, without exact values">
       <change beforePath="$PROJECT_DIR$/Main_tea.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main_tea.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_tea.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_tea.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +84,7 @@
       <workItem from="1779833817379" duration="1923000" />
       <workItem from="1779883358964" duration="2997000" />
       <workItem from="1779887573209" duration="62000" />
-      <workItem from="1780132618210" duration="2233000" />
+      <workItem from="1780132618210" duration="2848000" />
     </task>
     <task id="LOCAL-00001" summary="Plan has been added">
       <option name="closed" value="true" />
@@ -206,7 +206,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779887626793</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="recomendation system was improved, yet, without exact values">
+      <option name="closed" value="true" />
+      <created>1780135007466</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1780135007466</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,10 +230,11 @@
     <MESSAGE value="main logic was created" />
     <MESSAGE value="UI was created" />
     <MESSAGE value="An improved recommendation system has been implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="An improved recommendation system has been implemented" />
+    <MESSAGE value="recomendation system was improved, yet, without exact values" />
+    <option name="LAST_COMMIT_MESSAGE" value="recomendation system was improved, yet, without exact values" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/OOP_tea$UI_tea.coverage" NAME="UI_tea Coverage Results" MODIFIED="1780133452679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/OOP_tea$UI_tea.coverage" NAME="UI_tea Coverage Results" MODIFIED="1780135430736" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/OOP_tea$Main_tea.coverage" NAME="Main_tea Coverage Results" MODIFIED="1780133473323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
