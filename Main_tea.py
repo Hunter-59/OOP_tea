@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 #user preferences
 class Preferences:
@@ -51,9 +51,21 @@ class Tea(ABC):
         self.brew_temp = brew_temp
         self.brew_time = brew_time
 
-    @abstractmethod
-    def match(self, prefs, sugar, lemon):
-        pass
+    def match(self, prefs, sugar, lemon, multipliers):
+
+        final_sweetness = self.sweetness + sugar.sweetness_bonus()
+        final_sourness = self.sourness + lemon.sourness_bonus()
+        final_bitterness = self.bitterness - lemon.bitterness_reduction()
+        final_strength = self.strength
+
+        score = 0
+
+        score += 10 - abs(final_sweetness - prefs.sweetness) * multipliers[""]
+        score += 10 - abs(final_sourness - prefs.sourness) * multipliers[""]
+        score += 10 - abs(final_bitterness - prefs.bitterness) * multipliers[""]
+        score += 10 - abs(final_strength - prefs.strength) * multipliers[""]
+
+        return score
 
     # brewing info
     def brew_info(self):
@@ -73,23 +85,12 @@ class BlackTea(Tea):
             brew_time=4
         )
 
-    def match(self, prefs, sugar, lemon):
+    def get_multipliers(self):
+        return {
 
-        final_sweetness = self.sweetness + sugar.sweetness_bonus()
-        final_sourness = self.sourness + lemon.sourness_bonus()
-        final_bitterness = self.bitterness - lemon.bitterness_reduction()
-        final_strength = self.strength
+        }
 
-        score = 0
-
-        score += 10 - abs(final_sweetness - prefs.sweetness)
-        score += 10 - abs(final_sourness - prefs.sourness)
-        score += 10 - abs(final_bitterness - prefs.bitterness)
-        score += 10 - abs(final_strength - prefs.strength)
-
-        return score
-
-
+#------------------------------------------------------------------------
 class GreenTea(Tea):
     def __init__(self):
         super().__init__(
@@ -102,23 +103,12 @@ class GreenTea(Tea):
             brew_time=3
         )
 
-    def match(self, prefs, sugar, lemon):
+    def get_multipliers(self):
+        return {
 
-        final_sweetness = self.sweetness + sugar.sweetness_bonus()
-        final_sourness = self.sourness + lemon.sourness_bonus()
-        final_bitterness = self.bitterness - lemon.bitterness_reduction()
-        final_strength = self.strength
+        }
 
-        score = 0
-
-        score += 10 - abs(final_sweetness - prefs.sweetness)
-        score += 10 - abs(final_sourness - prefs.sourness)
-        score += 10 - abs(final_bitterness - prefs.bitterness)
-        score += 10 - abs(final_strength - prefs.strength)
-
-        return score
-
-
+#------------------------------------------------------------------------
 class RedTea(Tea):
     def __init__(self):
         super().__init__(
@@ -131,22 +121,10 @@ class RedTea(Tea):
             brew_time=5
         )
 
-    def match(self, prefs, sugar, lemon):
+    def get_multipliers(self):
+        return {
 
-        final_sweetness = self.sweetness + sugar.sweetness_bonus()
-        final_sourness = self.sourness + lemon.sourness_bonus()
-        final_bitterness = self.bitterness - lemon.bitterness_reduction()
-        final_strength = self.strength
-
-        score = 0
-
-        score += 10 - abs(final_sweetness - prefs.sweetness)
-        score += 10 - abs(final_sourness - prefs.sourness)
-        score += 10 - abs(final_bitterness - prefs.bitterness)
-        score += 10 - abs(final_strength - prefs.strength)
-
-        return score
-
+        }
 
 #tea recommender system
 
@@ -163,14 +141,14 @@ class TeaRecommender:
 
         # trying different combinations
         for tea in self.teas:
-
             for sugar_amount in range(0, 4):
                 for lemon_amount in range(0, 3):
 
+                    multipliers = tea.get_multipliers()
                     sugar = Sugar(sugar_amount)
                     lemon = Lemon(lemon_amount)
 
-                    score = tea.match(prefs, sugar, lemon)
+                    score = tea.match(prefs, sugar, lemon, multipliers)
 
                     if score > best_score:
 
